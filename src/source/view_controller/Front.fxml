@@ -12,7 +12,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="source.view_controller.Front" prefWidth="500" prefHeight="400">
+            fx:controller="source.view_controller.FrontController" prefWidth="500" prefHeight="400">
     <center>
         <VBox>
             <children>
@@ -26,7 +26,7 @@
                 </Label>
                 <HBox depthTest="DISABLE" prefHeight="0.0" prefWidth="500.0">
                     <children>
-                        <TextField id="fileInputField" prefHeight="25.0" prefWidth="410.0"
+                        <TextField fx:id="fileInputField" prefHeight="25.0" prefWidth="410.0"
                                    promptText="Podaj adres pliku wejściowego">
                             <HBox.margin>
                                 <Insets left="10.0"/>
@@ -50,7 +50,7 @@
                 </Label>
                 <HBox prefHeight="0.0" prefWidth="500.0">
                     <children>
-                        <TextField id="fileOutputField" prefHeight="25.0" prefWidth="410.0"
+                        <TextField fx:id="fileOutputField" prefHeight="25.0" prefWidth="410.0"
                                    promptText="Podaj adres pliku wejściowego">
                             <HBox.margin>
                                 <Insets left="10.0"/>
@@ -71,7 +71,7 @@
                         <Insets left="10.0" top="10.0"/>
                     </VBox.margin>
                 </Label>
-                <PasswordField id="pass" promptText="Podaj hasło">
+                <PasswordField fx:id="pass" promptText="Podaj hasło">
                     <VBox.margin>
                         <Insets left="10.0" right="10.0"/>
                     </VBox.margin>

@@ -3,42 +3,46 @@ package source.view_controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.io.FileInputStream;
 
-public class Front {
+public class FrontController {
     private File fileInput;
     private File fileOutput;
 
     @FXML
-    public TextField fileInputField, fileOutputField;
+    public TextField fileInputField;
+    @FXML
+    public TextField fileOutputField;
 
     @FXML
     public BorderPane mainPane = new BorderPane();
 
+    FrontController frontController;
 
-    public Front() {
-        fileOutputField = new TextField();
-        fileInputField = new TextField();
+    public FrontController() {
+
     }
 
     public void initialize() {
-        if(!(fileInput == null))
-            fileInputField.setText(fileInput.getAbsolutePath());
-        if(!(fileOutput == null))
-            fileOutputField.setText(fileOutput.getAbsolutePath());
-
+        if (fileInputField == null)
+            fileInputField = new TextField();
+        if (fileOutputField == null)
+            fileOutputField = new TextField();
     }
 
     @FXML
     public void decryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
             System.out.println("Deszyfrowanie");
+
+
         }
     }
 
@@ -47,19 +51,21 @@ public class Front {
     public void encryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
             System.out.println("Szyfrowanie");
+
+
         }
 
     }
 
     private boolean validateFilePath() {
-        if (!fileInputField.equals(null) ||!fileInputField.getText().equals("")) {
+        if (!fileInputField.equals(null) || !fileInputField.getText().equals("")) {
             fileInput = new File(fileInputField.getText());
         }
         if (fileInput.equals(null)) {
             return false;
         }
         if (!fileOutputField.equals(null) || !fileOutputField.getText().equals("")) {
-            fileInput = new File(fileOutputField.getText());
+            fileOutput = new File(fileOutputField.getText());
         }
         if (fileInput.equals(null)) {
             return false;
@@ -68,22 +74,21 @@ public class Front {
     }
 
     @FXML
-    private void openFile() throws Exception {
+    private void openFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz plik do szyfrowania");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileInput = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
-        fileInputField.setText(fileChooser.getInitialDirectory()+fileChooser.getTitle());
+        fileInputField.setText(fileInput.getAbsolutePath());
     }
 
     @FXML
-    private void saveFile() throws Exception {
+    private void saveFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz folder do zapisu");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileOutput = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
-//        fileOutputField.setText(fileChooser.getInitialDirectory()+fileChooser.getTitle());
-        fileOutputField.setText("CO");
+        fileOutputField.setText(fileOutput.getAbsolutePath());
     }
 
 
