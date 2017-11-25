@@ -3,14 +3,14 @@ package source.view_controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.InputStream;
 
 public class FrontController {
     private File fileInput;
@@ -20,11 +20,15 @@ public class FrontController {
     public TextField fileInputField;
     @FXML
     public TextField fileOutputField;
+    @FXML
+    public PasswordField passField;
 
     @FXML
     public BorderPane mainPane = new BorderPane();
 
     FrontController frontController;
+
+    private rwFIle rw = new rwFIle();
 
     public FrontController() {
 
@@ -35,6 +39,8 @@ public class FrontController {
             fileInputField = new TextField();
         if (fileOutputField == null)
             fileOutputField = new TextField();
+        if (passField == null)
+            passField = new PasswordField();
     }
 
     @FXML
@@ -46,13 +52,14 @@ public class FrontController {
         }
     }
 
-
     @FXML
     public void encryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
             System.out.println("Szyfrowanie");
-
-
+            InputStream is = rw.readFile(fileInput);
+            AlgorytmSzyfrowanie as = new AlgorytmSzyfrowanie();
+            StringBuilder sb = as.szyfrowanie(is, passField.getText());
+            rw.writeFile(sb, fileOutput, fileInput);
         }
 
     }
@@ -112,4 +119,5 @@ public class FrontController {
         alert.showAndWait();
 
     }
+
 }

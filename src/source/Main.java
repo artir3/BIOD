@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import source.view_controller.FrontController;
 
 import java.io.IOException;
 
@@ -18,8 +17,8 @@ public class Main extends Application {
         );
         Parent root = (Parent) loader.load();
 
-        primaryStage.setTitle("BIOD");
-        primaryStage.setScene(new Scene(root, 500, 400));
+        primaryStage.setTitle("Szyfrograf");
+        primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.show();
     }
 
