@@ -37,7 +37,7 @@ public class FrontController {
     }
 
     public void initialize() {
-        passField.setText("RZYMjestWielki");
+//        passField.setText("RZYMjestWielki");
         if (fileInputField == null)
             fileInputField = new TextField();
         if (fileOutputField == null)
