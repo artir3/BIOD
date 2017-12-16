@@ -48,27 +48,27 @@ public class FrontController {
 
     @FXML
     public void decryptFile(ActionEvent actionEvent) {
-        fileInputField.setText("/home/artur/tajny.txt");
-        fileOutputField.setText("/home/artur/odczytany.txt");
+//        fileInputField.setText("/home/artur/tajny.txt");
+//        fileOutputField.setText("/home/artur/odczytany.txt");
         if (validateFilePath()) {
             System.out.println("Deszyfrowanie");
             String text  = rw.readFile(fileInput);
             Deszyfrowanie as = new Deszyfrowanie();
             StringBuilder sb = as.deszyfrowanie(text, passField.getText());
-            rw.writeFile2(sb, fileOutput, fileInput);
+            rw.writeFile(sb, fileOutput, fileInput);
             info("Plik zostal deszyfrowany");
         }
     }
 
     @FXML
     public void encryptFile(ActionEvent actionEvent) {
-        fileInputField.setText("/home/artur/jawny.txt");
-        fileOutputField.setText("/home/artur/tajny.txt");
+//        fileInputField.setText("/home/artur/jawny.txt");
+//        fileOutputField.setText("/home/artur/tajny.txt");
         if (validateFilePath()) {
             String text  = rw.readFile(fileInput);
             Szyfrowanie as = new Szyfrowanie();
             StringBuilder sb = as.szyfrowanie(text, passField.getText());
-            rw.writeFile2(sb, fileOutput, fileInput);
+            rw.writeFile(sb, fileOutput, fileInput);
             info("Plik zostal zaszyfrowany");
         }
     }

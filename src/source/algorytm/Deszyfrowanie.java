@@ -1,16 +1,16 @@
 package source.algorytm;
 
 
+import static source.Main.PUSTY_ZNAK;
+
 public class Deszyfrowanie {
 
-    StringBuilder strBuid = new StringBuilder();
     private int textSize;
     private int passSize;
     private int dl_x = 0;
     private int dl_y = 0;
     private char[][] znaki;
     private char[][] result;
-    private char PUSTY_ZNAK = 14;
     private String haslo;
 
     public StringBuilder deszyfrowanie(String text, String haslo) {
@@ -66,9 +66,7 @@ public class Deszyfrowanie {
         for (int y = 0; y < dl_y; y++) {
             for (int x = 0; x < dl_x; x++) {
                 this.result[y][x] = permutuj(this.result[y][x], x, y);
-                System.out.print(this.result[y][x]);
             }
-            System.out.println();
         }
     }
 

@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    public static char PUSTY_ZNAK = 14;
+
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(

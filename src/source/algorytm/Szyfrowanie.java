@@ -1,18 +1,16 @@
 package source.algorytm;
 
 
-import java.io.InputStream;
+import static source.Main.PUSTY_ZNAK;
 
 public class Szyfrowanie {
 
-    StringBuilder strBuid = new StringBuilder();
     private int textSize;
     private int passSize;
     private int dl_x = 0;
     private int dl_y = 0;
     private char[][] znaki;
     private char[][] result;
-    private char PUSTY_ZNAK = 14;
     private String haslo;
 
     public StringBuilder szyfrowanie(String text, String haslo) {
@@ -69,9 +67,7 @@ public class Szyfrowanie {
         for (int y = 0; y < dl_y; y++) {
             for (int x = 0; x < dl_x; x++) {
                 this.znaki[x][y] = permutuj(this.znaki[x][y], x, y);
-                System.out.print((int)this.znaki[x][y]);
             }
-            System.out.println();
         }
     }
 
