@@ -34,6 +34,6 @@ public class RWfiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//      inputFile.delete();
+      inputFile.delete();
     }
 }

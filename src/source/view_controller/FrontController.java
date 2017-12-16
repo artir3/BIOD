@@ -37,7 +37,6 @@ public class FrontController {
     }
 
     public void initialize() {
-//        passField.setText("RZYMjestWielki");
         if (fileInputField == null)
             fileInputField = new TextField();
         if (fileOutputField == null)
@@ -48,8 +47,6 @@ public class FrontController {
 
     @FXML
     public void decryptFile(ActionEvent actionEvent) {
-//        fileInputField.setText("/home/artur/tajny.txt");
-//        fileOutputField.setText("/home/artur/odczytany.txt");
         if (validateFilePath()) {
             System.out.println("Deszyfrowanie");
             String text  = rw.readFile(fileInput);
@@ -62,8 +59,6 @@ public class FrontController {
 
     @FXML
     public void encryptFile(ActionEvent actionEvent) {
-//        fileInputField.setText("/home/artur/jawny.txt");
-//        fileOutputField.setText("/home/artur/tajny.txt");
         if (validateFilePath()) {
             String text  = rw.readFile(fileInput);
             Szyfrowanie as = new Szyfrowanie();
