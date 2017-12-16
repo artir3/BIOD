@@ -8,6 +8,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import source.algorytm.Szyfrowanie;
+import source.algorytm.SzyfrowanieByte;
+import source.algorytm.rwFIle;
 
 import java.io.File;
 import java.io.InputStream;
@@ -49,6 +52,7 @@ public class FrontController {
             System.out.println("Deszyfrowanie");
 
 
+            info("Plik został deszyfrowany");
         }
     }
 
@@ -56,12 +60,25 @@ public class FrontController {
     public void encryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
             System.out.println("Szyfrowanie");
-            InputStream is = rw.readFile(fileInput);
-            AlgorytmSzyfrowanie as = new AlgorytmSzyfrowanie();
-            StringBuilder sb = as.szyfrowanie(is, passField.getText());
+            byte[] is = rw.readFiles(fileInput);
+//            StringBuilder is = rw.readFile(fileInput);
+//            Szyfrowanie as = new Szyfrowanie();
+            SzyfrowanieByte as = new SzyfrowanieByte();
+            byte[] sb = as.szyfrowanie(is, passField.getText());
+//            StringBuilder sb = as.szyfrowanie(is, passField.getText());
             rw.writeFile(sb, fileOutput, fileInput);
+            info("Plik został zaszyfrowany");
         }
+    }
 
+
+    @FXML
+    public void info(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(mainPane.getScene().getWindow());
+        alert.setTitle("Informacje");
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 
     private boolean validateFilePath() {
@@ -77,6 +94,10 @@ public class FrontController {
         if (fileInput.equals(null)) {
             return false;
         }
+        if (passField.equals(null) || passField.getText().length()<8) {
+            info("Hasło musi posiadać więcej niz 8 znaków, proszę poprawić.");
+            return false;
+        }
         return true;
     }
 
@@ -86,7 +107,8 @@ public class FrontController {
         fileChooser.setTitle("Wybierz plik do szyfrowania");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileInput = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
-        fileInputField.setText(fileInput.getAbsolutePath());
+        if (fileInput!=null && fileInput.exists())
+            fileInputField.setText(fileInput.getAbsolutePath());
     }
 
     @FXML
@@ -95,7 +117,8 @@ public class FrontController {
         fileChooser.setTitle("Wybierz folder do zapisu");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileOutput = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
-        fileOutputField.setText(fileOutput.getAbsolutePath());
+        if (fileOutput!=null)
+            fileOutputField.setText(fileOutput.getAbsolutePath());
     }
 
 
@@ -117,7 +140,6 @@ public class FrontController {
                 "Index: 187104\n";
         alert.setContentText(tekst);
         alert.showAndWait();
-
     }
 
 }
