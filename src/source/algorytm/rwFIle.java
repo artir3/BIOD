@@ -30,7 +30,7 @@ public class rwFIle {
     public void writeFile(byte[] os, File outPutFile, File inputFile){
         try {
             Files.write(outPutFile.toPath(),os);
-            inputFile.delete();
+//            inputFile.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,19 +38,5 @@ public class rwFIle {
     }
 
 
-    public void writeFile(StringBuilder os, File outPutFile, File inputFile){
-        Writer writer = null;
-        try {
-            writer = new OutputStreamWriter(new FileOutputStream(outPutFile), "windows-1250");
-            writer.write(os.toString());
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-        }
-            inputFile.delete();
 
-    }
 }

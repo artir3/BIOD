@@ -8,12 +8,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import source.algorytm.RWfiles;
 import source.algorytm.Szyfrowanie;
-import source.algorytm.SzyfrowanieByte;
-import source.algorytm.rwFIle;
 
 import java.io.File;
-import java.io.InputStream;
 
 public class FrontController {
     private File fileInput;
@@ -31,13 +29,16 @@ public class FrontController {
 
     FrontController frontController;
 
-    private rwFIle rw = new rwFIle();
+    private RWfiles rw = new RWfiles();
 
     public FrontController() {
 
     }
 
     public void initialize() {
+        fileInputField.setText("/home/artur/jawny.txt");
+        fileOutputField.setText("/home/artur/tajny.txt");
+        passField.setText("RZYMjestWielki");
         if (fileInputField == null)
             fileInputField = new TextField();
         if (fileOutputField == null)
@@ -59,15 +60,11 @@ public class FrontController {
     @FXML
     public void encryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
-            System.out.println("Szyfrowanie");
-            byte[] is = rw.readFiles(fileInput);
-//            StringBuilder is = rw.readFile(fileInput);
-//            Szyfrowanie as = new Szyfrowanie();
-            SzyfrowanieByte as = new SzyfrowanieByte();
-            byte[] sb = as.szyfrowanie(is, passField.getText());
-//            StringBuilder sb = as.szyfrowanie(is, passField.getText());
-            rw.writeFile(sb, fileOutput, fileInput);
-            info("Plik został zaszyfrowany");
+            String text  = rw.readFile(fileInput);
+            Szyfrowanie as = new Szyfrowanie();
+            StringBuilder sb = as.szyfrowanie(text, passField.getText());
+            rw.writeFile2(sb, fileOutput, fileInput);
+            info("Plik zostal zaszyfrowany");
         }
     }
 

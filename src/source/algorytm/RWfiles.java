@@ -1,44 +1,60 @@
 package source.algorytm;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class RWfiles {
 
-    public InputStream readFile(File file ){
-        FileInputStream fis = null;
+    private static String KODOWANIE = "windows-1250";
+
+    public String readFile(File file){
         try {
-            fis = new FileInputStream(file);
+//            return new Scanner(file,KODOWANIE).toString();
+                return new String ( Files.readAllBytes(file.toPath()),KODOWANIE );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        return fis;
-    }
-
-
-    public void writeFile(byte[] os, File outPutFile, File inputFile){
-        FileOutputStream fop = null;
-        try {
-            fop = new FileOutputStream(outPutFile.getAbsolutePath());
-        } catch (FileNotFoundException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
-        if (!outPutFile.exists()) {
-                try {
-                    outPutFile.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        try {
-            fop.write(os);
-            fop.flush();
-            fop.close();
-            inputFile.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return "";
     }
 
+
+    public void writeFile(StringBuilder os, File outPutFile, File inputFile){
+        FileOutputStream fop = null;
+        try {
+            fop = new FileOutputStream(outPutFile.getAbsolutePath());
+
+            if (!outPutFile.exists()) {
+                outPutFile.createNewFile();
+            }
+
+            fop.write(os.toString().getBytes());
+            fop.flush();
+            fop.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//      inputFile.delete();
+    }
+
+    public void writeFile2(StringBuilder os, File outPutFile, File inputFile){
+        Writer writer = null;
+        try {
+            writer = new OutputStreamWriter(new FileOutputStream(outPutFile), KODOWANIE);
+            writer.write(os.toString());
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//      inputFile.delete();
+    }
 }
