@@ -17,8 +17,7 @@
 
 *.classpath
 
-*.idea/
-/.idea/* 
+
 /out/
 
 *.project
