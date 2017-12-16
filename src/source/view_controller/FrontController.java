@@ -8,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import source.algorytm.Deszyfrowanie;
 import source.algorytm.RWfiles;
 import source.algorytm.Szyfrowanie;
 
@@ -36,8 +37,6 @@ public class FrontController {
     }
 
     public void initialize() {
-        fileInputField.setText("/home/artur/jawny.txt");
-        fileOutputField.setText("/home/artur/tajny.txt");
         passField.setText("RZYMjestWielki");
         if (fileInputField == null)
             fileInputField = new TextField();
@@ -49,16 +48,22 @@ public class FrontController {
 
     @FXML
     public void decryptFile(ActionEvent actionEvent) {
+        fileInputField.setText("/home/artur/tajny.txt");
+        fileOutputField.setText("/home/artur/odczytany.txt");
         if (validateFilePath()) {
             System.out.println("Deszyfrowanie");
-
-
-            info("Plik został deszyfrowany");
+            String text  = rw.readFile(fileInput);
+            Deszyfrowanie as = new Deszyfrowanie();
+            StringBuilder sb = as.deszyfrowanie(text, passField.getText());
+            rw.writeFile2(sb, fileOutput, fileInput);
+            info("Plik zostal deszyfrowany");
         }
     }
 
     @FXML
     public void encryptFile(ActionEvent actionEvent) {
+        fileInputField.setText("/home/artur/jawny.txt");
+        fileOutputField.setText("/home/artur/tajny.txt");
         if (validateFilePath()) {
             String text  = rw.readFile(fileInput);
             Szyfrowanie as = new Szyfrowanie();
@@ -92,7 +97,7 @@ public class FrontController {
             return false;
         }
         if (passField.equals(null) || passField.getText().length()<8) {
-            info("Hasło musi posiadać więcej niz 8 znaków, proszę poprawić.");
+            info("Has?o musi posiada? wi?cej niz 8 znak�w, prosz? poprawi?.");
             return false;
         }
         return true;
@@ -132,7 +137,10 @@ public class FrontController {
         alert.initOwner(mainPane.getScene().getWindow());
         alert.setTitle("Informacje");
         alert.setHeaderText("Informacje");
-        String tekst = "Aplikacja na BIOD!!\n" +
+        String tekst = "Aplikacja s?u??ca do szyfrowania i deszyfrowania plik�w. \n\n " +
+                "Algorym szyfrowania jest blokowy, symetryczny z szyfrowaniem przestawieniowym i polialfabetycznym. \n\n " +
+                "Wymagania co do klucza s? nast?puj?ce:\n" +
+                "Minimum 8 znak�w.\n\n" +
                 "Autor: Artur Markowski\n" +
                 "Index: 187104\n";
         alert.setContentText(tekst);

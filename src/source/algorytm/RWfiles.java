@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class RWfiles {
 
-    private static String KODOWANIE = "windows-1250";
+    private static String KODOWANIE = "ISO-8859-1";
 
     public String readFile(File file){
         try {
