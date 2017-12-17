@@ -50,9 +50,10 @@ public class FrontController {
             String text  = rw.readFile(fileInput);
             Deszyfrowanie as = new Deszyfrowanie();
             StringBuilder sb = as.deszyfrowanie(text, passField.getText());
-            rw.writeFile(sb, fileOutput, fileInput);
+            rw.writeFile(sb, fileOutput );
             info("Plik zostal deszyfrowany");
         }
+        reset();
     }
 
     @FXML
@@ -61,9 +62,11 @@ public class FrontController {
             String text  = rw.readFile(fileInput);
             Szyfrowanie as = new Szyfrowanie();
             StringBuilder sb = as.szyfrowanie(text, passField.getText());
-            rw.writeFile(sb, fileOutput, fileInput);
+            rw.writeFile(sb, fileOutput);
             info("Plik zostal zaszyfrowany");
+            fileInput.delete();
         }
+        reset();
     }
 
     @FXML
@@ -73,6 +76,14 @@ public class FrontController {
         alert.setTitle("Informacje");
         alert.setContentText(text);
         alert.showAndWait();
+    }
+
+    private void reset(){
+        passField.setText("");
+        fileOutputField.setText("");
+        fileInputField.setText("");
+        fileInput = null;
+        fileOutput = null;
     }
 
     private boolean validateFilePath() {
@@ -121,10 +132,10 @@ public class FrontController {
         alert.initOwner(mainPane.getScene().getWindow());
         alert.setTitle("Informacje");
         alert.setHeaderText("Informacje");
-        String tekst = "Aplikacja s?u??ca do szyfrowania i deszyfrowania plik�w. \n\n " +
+        String tekst = "Aplikacja służąca do szyfrowania i deszyfrowania plików. \n\n " +
                 "Algorym szyfrowania jest blokowy, symetryczny z szyfrowaniem przestawieniowym i polialfabetycznym. \n\n " +
-                "Wymagania co do klucza s? nast?puj?ce:\n" +
-                "Minimum 8 znak�w.\n\n" +
+                "Wymagania co do klucza są następujące:\n" +
+                "Minimum 8 znaków.\n\n" +
                 "Autor: Artur Markowski\n" +
                 "Index: 187104\n";
         alert.setContentText(tekst);
@@ -132,120 +143,3 @@ public class FrontController {
     }
 
 }
-
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<?import javafx.scene.layout.BorderPane?>
-<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="source.view_controller.FrontController" prefWidth="500" prefHeight="400">
-    <center>
-        <VBox>
-            <children>
-                <Label text="Plik wejściowy">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <VBox.margin>
-                        <Insets left="10.0" top="20.0"/>
-                    </VBox.margin>
-                </Label>
-                <HBox depthTest="DISABLE" prefHeight="0.0" prefWidth="500.0">
-                    <children>
-                        <TextField fx:id="fileInputField" prefHeight="25.0" prefWidth="410.0"
-                                   promptText="Podaj adres pliku wejściowego">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                        </TextField>
-                        <Button id="bIntput" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#openFile"
-                                text="Wybierz" textAlignment="CENTER">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                        </Button>
-                    </children>
-                </HBox>
-                <Label text="Plik wyjściowy">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <VBox.margin>
-                        <Insets left="10.0" top="10.0"/>
-                    </VBox.margin>
-                </Label>
-                <HBox prefHeight="0.0" prefWidth="500.0">
-                    <children>
-                        <TextField fx:id="fileOutputField" prefHeight="25.0" prefWidth="410.0"
-                                   promptText="Podaj adres pliku wejściowego">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                        </TextField>
-                        <Button id="bOutput" mnemonicParsing="false" onAction="#saveFile" text="Wybierz">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                        </Button>
-                    </children>
-                </HBox>
-                <Label text="Hasło" textAlignment="CENTER">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                    <VBox.margin>
-                        <Insets left="10.0" top="10.0"/>
-                    </VBox.margin>
-                </Label>
-                <PasswordField fx:id="passField" promptText="Podaj hasło">
-                    <VBox.margin>
-                        <Insets left="10.0" right="10.0"/>
-                    </VBox.margin>
-                </PasswordField>
-                <HBox alignment="CENTER" prefHeight="42.0" prefWidth="500.0">
-                    <children>
-                        <Button id="encrypt" onAction="#encryptFile" text="Szyfruj">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets right="10.0"/>
-                            </opaqueInsets>
-                        </Button>
-                        <Button id="info" onAction="#info" text="Informacje">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets left="10.0" right="10.0"/>
-                            </opaqueInsets>
-                            <HBox.margin>
-                                <Insets left="10.0" right="10.0"/>
-                            </HBox.margin>
-                        </Button>
-                        <Button id="decrypt" onAction="#decryptFile" text="Deszyfruj" textAlignment="CENTER">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets left="10.0"/>
-                            </opaqueInsets>
-                        </Button>
-                    </children>
-                    <VBox.margin>
-                        <Insets top="50.0"/>
-                    </VBox.margin>
-                </HBox>
-            </children>
-        </VBox>
-    </center>
-</BorderPane>
-

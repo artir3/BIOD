@@ -20,7 +20,7 @@ public class RWfiles {
         return "";
     }
 
-    public void writeFile(StringBuilder os, File outPutFile, File inputFile){
+    public void writeFile(StringBuilder os, File outPutFile){
         Writer writer = null;
         try {
             if (!outPutFile.exists()) {
@@ -34,6 +34,6 @@ public class RWfiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        inputFile.delete();
+
     }
 }
