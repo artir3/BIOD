@@ -33,7 +33,6 @@ public class FrontController {
     private RWfiles rw = new RWfiles();
 
     public FrontController() {
-
     }
 
     public void initialize() {
@@ -48,7 +47,6 @@ public class FrontController {
     @FXML
     public void decryptFile(ActionEvent actionEvent) {
         if (validateFilePath()) {
-            System.out.println("Deszyfrowanie");
             String text  = rw.readFile(fileInput);
             Deszyfrowanie as = new Deszyfrowanie();
             StringBuilder sb = as.deszyfrowanie(text, passField.getText());
@@ -67,7 +65,6 @@ public class FrontController {
             info("Plik zostal zaszyfrowany");
         }
     }
-
 
     @FXML
     public void info(String text) {
@@ -117,14 +114,6 @@ public class FrontController {
         if (fileOutput!=null)
             fileOutputField.setText(fileOutput.getAbsolutePath());
     }
-
-
-    //    @FXML
-    public void exitMenu(ActionEvent actionEvent) {
-        Platform.exit();
-        System.exit(0);
-    }
-
 
     @FXML
     public void info(ActionEvent actionEvent) {
