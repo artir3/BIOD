@@ -52,8 +52,8 @@ public class FrontController {
             StringBuilder sb = as.deszyfrowanie(text, passField.getText());
             rw.writeFile(sb, fileOutput );
             info("Plik zostal deszyfrowany");
+            reset();
         }
-        reset();
     }
 
     @FXML
@@ -65,8 +65,8 @@ public class FrontController {
             rw.writeFile(sb, fileOutput);
             info("Plik zostal zaszyfrowany");
             fileInput.delete();
+            reset();
         }
-        reset();
     }
 
     @FXML
@@ -86,6 +86,7 @@ public class FrontController {
         fileOutput = null;
     }
 
+
     private boolean validateFilePath() {
         if (!fileInputField.equals(null) || !fileInputField.getText().equals("")) {
             fileInput = new File(fileInputField.getText());
@@ -100,7 +101,7 @@ public class FrontController {
             return false;
         }
         if (passField.equals(null) || passField.getText().length()<8) {
-            info("Has?o musi posiada? wi?cej niz 8 znak�w, prosz? poprawi?.");
+            info("Hasło musi posiadać więcej niz 8 znaków, proszę poprawić.");
             return false;
         }
         return true;

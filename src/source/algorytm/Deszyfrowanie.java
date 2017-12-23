@@ -14,7 +14,10 @@ public class Deszyfrowanie {
     private String haslo;
 
     public StringBuilder deszyfrowanie(String text, String haslo) {
-        this.haslo = haslo;
+        if (haslo.length()%2==0)
+            this.haslo= haslo.length() + haslo + haslo.length();
+        else
+            this.haslo= haslo + haslo.length();
         textSize = text.length();
         passSize = haslo.length();
 
